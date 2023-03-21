@@ -6,8 +6,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace FlappyBird
 {
@@ -19,7 +21,6 @@ namespace FlappyBird
         public static int screenHeight;
         int score;
         int obsGap = 800;
-        
         public GameScreen()
         {
             InitializeComponent();
@@ -56,7 +57,8 @@ namespace FlappyBird
             File.WriteAllText(System.Reflection.Assembly.GetEntryAssembly().Location, text);*/
             gameTimer.Stop();
             gameTimer.Enabled = false;
-            Form1.ChangeScreen(this, new MenuScreen());
+            
+            Form1.ChangeScreen(this, new GameOverScreen());
             
 
         }

@@ -131,6 +131,15 @@ namespace FlappyBird.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream death1 {
+            get {
+                return ResourceManager.GetStream("death1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap flappySprites {
@@ -161,7 +170,7 @@ namespace FlappyBird.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 0:.
         /// </summary>
         internal static string scoreinfo {
             get {
