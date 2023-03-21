@@ -10,19 +10,38 @@ namespace FlappyBird
     internal class Obstacle
     {
         public static Bitmap sprite;
+        private bool hasScored = false;
         public int x;
         public int y;
-        public int y2;float dh fc
         public int yGap;
         public int width = 50;
         public static SolidBrush sb = new SolidBrush(Color.GreenYellow);
         static Random random = new Random();
 
+        public Rectangle topOb;
+        public Rectangle bottomOb;
+
         public Obstacle(int _x)
         {
             this.x = _x;
             this.y = random.Next(100, 300);
-            this.yGap = random.Next(150, 750);
+            this.yGap = random.Next(200, 500);
+
+            topOb = new Rectangle(x, 0, width, y);
+            bottomOb = new Rectangle(x, y + yGap, width, GameScreen.screenHeight);
+        }
+        public bool Contains(Rectangle r)
+        {
+            if(topOb.IntersectsWith(r) || bottomOb.IntersectsWith(r))
+                return true;
+            return false;
+        }
+        public bool Score(double pX)
+        {
+            if(hasScored)
+                return false;
+            hasScored = pX > x;
+            return hasScored;
         }
     }
 }

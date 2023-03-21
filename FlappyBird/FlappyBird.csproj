@@ -129,5 +129,8 @@
   <ItemGroup>
     <None Include="Properties\bird3l.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\scoreinfo.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

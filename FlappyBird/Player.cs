@@ -13,10 +13,12 @@ namespace FlappyBird
         double xSpeed, ySpeed, terminalVelocity;
         Bitmap[] sprites;
         public Bitmap currentSprite;
+        public Rectangle boundingBox;
         int spriteIndex;
         int spriteTimer;
         int spriteTimerCeiling;
         public bool animationEnabled = false;
+        private byte bbO = 6;
 
         public Player(double _y, double xSpeed, int _spriteTimerCeiling, Bitmap[] _sprites)
         {
@@ -31,6 +33,7 @@ namespace FlappyBird
             currentSprite = sprites[spriteIndex];
 
             terminalVelocity = 25;
+            
         }
         public void Flap()
         {
@@ -51,6 +54,11 @@ namespace FlappyBird
         {
             x += xSpeed;
             y += ySpeed;
+            boundingBox = new Rectangle(bbO, (int)y + bbO, currentSprite.Width - bbO - bbO, currentSprite.Height - bbO - bbO);
+        }
+        public void HasScored()
+        {
+            xSpeed *= 1.02;
         }
         public void Animate(int timeElapsed)
         {
