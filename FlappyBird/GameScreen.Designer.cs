@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.instructLabel = new System.Windows.Forms.Label();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // instructLabel
@@ -38,11 +39,12 @@
             this.instructLabel.AutoSize = true;
             this.instructLabel.BackColor = System.Drawing.Color.DarkOrange;
             this.instructLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.instructLabel.Font = new System.Drawing.Font("Digiface", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.instructLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.instructLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.instructLabel.Location = new System.Drawing.Point(373, 332);
+            this.instructLabel.Location = new System.Drawing.Point(497, 409);
+            this.instructLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.instructLabel.Name = "instructLabel";
-            this.instructLabel.Size = new System.Drawing.Size(125, 35);
+            this.instructLabel.Size = new System.Drawing.Size(212, 41);
             this.instructLabel.TabIndex = 0;
             this.instructLabel.Text = "TAP SPACE";
             // 
@@ -51,15 +53,26 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(446, 84);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 16);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "label1";
+            // 
             // GameScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.instructLabel);
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GameScreen";
-            this.Size = new System.Drawing.Size(600, 800);
+            this.Size = new System.Drawing.Size(1000, 985);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
@@ -71,5 +84,6 @@
 
         private System.Windows.Forms.Label instructLabel;
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Label label1;
     }
 }

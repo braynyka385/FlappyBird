@@ -10,7 +10,7 @@ namespace FlappyBird
     internal class Player
     {
         public double x, y;
-        double xSpeed, ySpeed;
+        double xSpeed, ySpeed, terminalVelocity;
         Bitmap[] sprites;
         public Bitmap currentSprite;
         int spriteIndex;
@@ -29,6 +29,28 @@ namespace FlappyBird
             this.spriteTimer = 0;
             this.spriteTimerCeiling = _spriteTimerCeiling;
             currentSprite = sprites[spriteIndex];
+
+            terminalVelocity = 25;
+        }
+        public void Flap()
+        {
+            ySpeed -= 12;
+            if (ySpeed < -terminalVelocity)
+                ySpeed = -terminalVelocity;
+            animationEnabled = true;
+        }
+        public void ApplyGravity(double pull)
+        {
+            ySpeed += pull;
+            if(ySpeed > terminalVelocity)
+            {
+                ySpeed = terminalVelocity;
+            }
+        }
+        public void Move()
+        {
+            x += xSpeed;
+            y += ySpeed;
         }
         public void Animate(int timeElapsed)
         {
