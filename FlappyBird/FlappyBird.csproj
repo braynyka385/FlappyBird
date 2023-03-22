@@ -85,6 +85,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GameOverScreen.resx">
+      <DependentUpon>GameOverScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +142,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\scoreinfo.txt" />
+    <None Include="Resources\mao.jpg" />
+    <None Include="Resources\flappysongextended.wav" />
+    <None Include="Resources\flap.wav" />
+    <None Include="Resources\flappysong.wav" />
     <None Include="Resources\death.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

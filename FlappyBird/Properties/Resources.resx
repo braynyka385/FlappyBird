@@ -142,11 +142,23 @@
   <data name="death1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\death.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="flap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flap.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="flappysong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flappysong.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="flappysongextended" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flappysongextended.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="flappySprites" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flappySprites.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mao.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pipe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pipe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

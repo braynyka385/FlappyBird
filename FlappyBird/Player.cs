@@ -32,12 +32,12 @@ namespace FlappyBird
             this.spriteTimerCeiling = _spriteTimerCeiling;
             currentSprite = sprites[spriteIndex];
 
-            terminalVelocity = 25;
+            terminalVelocity = 22;
             
         }
         public void Flap()
         {
-            ySpeed -= 12;
+            ySpeed -= 10.5;
             if (ySpeed < -terminalVelocity)
                 ySpeed = -terminalVelocity;
             animationEnabled = true;
