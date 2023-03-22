@@ -16,7 +16,8 @@ namespace FlappyBird
     public partial class GameScreen : UserControl
     {
         Player player;
-        Scenery[] bottomScenery = new Scenery[3];
+        Scenery[] bottomScenery = new Scenery[6];
+        Scenery[] clouds = new Scenery[8];  
         List<Obstacle> obstacles = new List<Obstacle>();
         MediaPlayer flapSound = new MediaPlayer();
         MediaPlayer music = new MediaPlayer();
@@ -24,6 +25,9 @@ namespace FlappyBird
         public static int screenHeight;
         int score;
         int obsGap = 800;
+
+        Random random = new Random();
+
         public GameScreen()
         {
             InitializeComponent();
@@ -39,19 +43,44 @@ namespace FlappyBird
             playerSprites[1] = new Bitmap(Properties.Resources.bird2l);
             playerSprites[2] = new Bitmap(Properties.Resources.bird3l);
 
+
             screenHeight = this.Height;
             player = new Player(this.Height / 2, 7, 100, playerSprites);
             for(int i = 1; i <= 3; i++)
             {
                 Obstacle o = new Obstacle(obsGap * i);
                 obstacles.Add(o);
+
+                
+            }
+            for(int i = 0; i < bottomScenery.Length; i++)
+            {
+                Scenery s = new Scenery(Properties.Resources.ground, (i) * Properties.Resources.ground.Width,
+                    this.Height - Properties.Resources.ground.Height,
+                    0.7);
+                bottomScenery[i] = s;
+            }
+
+            for(int i = 0; i < clouds.Length; i++)
+            {
+                Scenery cloud = new Scenery(Properties.Resources.cloud2,
+                    random.Next(0, this.Width),
+                    random.Next(0, this.Height/2),
+                    1.125);
+
+                Bitmap original = cloud.sprite;
+                Bitmap resized = new Bitmap(original, new Size(original.Width / 6, original.Height / 6));
+                cloud.sprite = resized;
+
+                clouds[i] = cloud;
             }
             score = 0;
         }
 
         private void GameOver()
         {
-
+            player.x = 110;
+            player.y = 110;
             music.Stop();
             gameTimer.Stop();
             gameTimer.Enabled = false;
@@ -87,15 +116,45 @@ namespace FlappyBird
                     Obstacle o = new Obstacle(obstacles[obstacles.Count - 1].x + obsGap);
                     obstacles.Add(o);
                 }
+                
 
+            }
+            for (int i = 0; i < bottomScenery.Length; i++)
+            {
+                if (bottomScenery[i].OutOfBounds(player.x, player.y))
+                {
+                    bottomScenery[i].x += (int)(bottomScenery[i].sprite.Width * (bottomScenery.Length));
+                }
+            }
+
+            for (int i = 0; i < clouds.Length; i++)
+            {
+                if (clouds[i].OutOfBounds(player.x, player.y))
+                {
+                    clouds[i].x +=  this.Width + clouds[i].sprite.Width * 2;
+                    clouds[i].y = random.Next(0, this.Height / 2);
+                }
             }
             label1.Text = score.ToString();
             
             Refresh();
         }
 
+        private void DrawScenery(Graphics g, Scenery s)
+        {
+            g.DrawImage(s.sprite, s.x - (int)(player.x * s.parallaxFactor), s.y);
+        }
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            foreach (Scenery s in bottomScenery)
+            {
+                DrawScenery(e.Graphics, s);
+            }
+            
+            foreach (Scenery s in clouds)
+            {
+                DrawScenery(e.Graphics, s);
+            }
             e.Graphics.DrawImage(player.currentSprite, this.Width / 2 - player.currentSprite.Width / 2, (int)player.y);
             foreach (Obstacle o in obstacles)
             {
@@ -106,6 +165,8 @@ namespace FlappyBird
                 e.Graphics.FillRectangle(Obstacle.sb, topDrawRect);
                 e.Graphics.FillRectangle(Obstacle.sb, bottomDrawRect);
             }
+
+            
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

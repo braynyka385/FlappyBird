@@ -24,8 +24,8 @@ namespace FlappyBird
         public Obstacle(int _x)
         {
             this.x = _x;
-            this.y = random.Next(000, 400);
-            this.yGap = random.Next(200, 400);
+            this.y = random.Next(000, 450);
+            this.yGap = random.Next(170, 300);
 
             topOb = new Rectangle(x, 0, width, y);
             bottomOb = new Rectangle(x, y + yGap, width, GameScreen.screenHeight);

@@ -11,13 +11,20 @@ namespace FlappyBird
     {
         public Bitmap sprite;
         public int x, y;
+        public double parallaxFactor;
 
-        public Scenery(Bitmap _sprite, int _x, int _y)
+        public Scenery(Bitmap _sprite, int _x, int _y, double _parallaxFactor)
         {
             this.sprite = _sprite;
             this.x = _x;
             this.y = _y;
+            this.parallaxFactor = _parallaxFactor;
         }
 
+
+        public bool OutOfBounds(double pX, double pY)
+        {
+            return this.x - (pX * this.parallaxFactor) + this.sprite.Width < 0;
+        }
     }
 }

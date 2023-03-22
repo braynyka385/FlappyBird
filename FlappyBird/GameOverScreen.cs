@@ -24,5 +24,11 @@ namespace FlappyBird
             deathSound.Volume = 1;
             deathSound.Play();
         }
+
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            deathSound.Stop();
+            Form1.ChangeScreen(this, new MenuScreen());
+        }
     }
 }

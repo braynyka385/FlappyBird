@@ -142,6 +142,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\scoreinfo.txt" />
+    <None Include="Resources\cloud2.png" />
+    <None Include="Resources\cloud.png" />
     <None Include="Resources\mao.jpg" />
     <None Include="Resources\flappysongextended.wav" />
     <None Include="Resources\flap.wav" />
