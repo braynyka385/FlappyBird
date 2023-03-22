@@ -23,7 +23,7 @@ namespace FlappyBird
         MediaPlayer music = new MediaPlayer();
         string path = Application.StartupPath;
         public static int screenHeight;
-        int score;
+        public static int score;
         int obsGap = 800;
 
         Random random = new Random();
@@ -32,6 +32,10 @@ namespace FlappyBird
         {
             InitializeComponent();
 
+
+
+            Obstacle.flagSprite = ScaleBitmap(Properties.Resources.chinaflag, 10);
+
             path = path.Substring(0, path.Length - 10);
             flapSound.Open(new Uri(path + "\\Resources\\flap.wav"));
             music.Volume = 2;
@@ -39,9 +43,9 @@ namespace FlappyBird
             music.Play();
 
             Bitmap[] playerSprites = new Bitmap[3];
-            playerSprites[0] = new Bitmap(Properties.Resources.bird1l);
-            playerSprites[1] = new Bitmap(Properties.Resources.bird2l);
-            playerSprites[2] = new Bitmap(Properties.Resources.bird3l);
+            playerSprites[0] = new Bitmap(ScaleBitmap(Properties.Resources.chinabloon3l, 1));
+            playerSprites[1] = new Bitmap(ScaleBitmap(Properties.Resources.chinabloon1l, 1));
+            playerSprites[2] = new Bitmap(ScaleBitmap(Properties.Resources.chinabloon2l, 1));
 
 
             screenHeight = this.Height;
@@ -68,13 +72,16 @@ namespace FlappyBird
                     random.Next(0, this.Height/2),
                     1.125);
 
-                Bitmap original = cloud.sprite;
-                Bitmap resized = new Bitmap(original, new Size(original.Width / 6, original.Height / 6));
-                cloud.sprite = resized;
+                cloud.sprite = ScaleBitmap(cloud.sprite, 6);
 
                 clouds[i] = cloud;
             }
             score = 0;
+        }
+
+        public Bitmap ScaleBitmap(Bitmap original, double byAmt)
+        {
+            return new Bitmap(original, new Size((int)(original.Width / byAmt), (int)(original.Height / byAmt)));
         }
 
         private void GameOver()
@@ -110,7 +117,7 @@ namespace FlappyBird
                     score++;
                     player.HasScored();
                 }
-                if(obstacles[i].x - player.x + this.Width/2 + obstacles[i].width < 0)
+                if(obstacles[i].x - player.x + this.Width/2 + obstacles[i].width + Obstacle.flagSprite.Width < 0)
                 {
                     obstacles.RemoveAt(i);
                     Obstacle o = new Obstacle(obstacles[obstacles.Count - 1].x + obsGap);
@@ -131,7 +138,7 @@ namespace FlappyBird
             {
                 if (clouds[i].OutOfBounds(player.x, player.y))
                 {
-                    clouds[i].x +=  this.Width + clouds[i].sprite.Width * 2;
+                    clouds[i].x +=  this.Width + clouds[i].sprite.Width;
                     clouds[i].y = random.Next(0, this.Height / 2);
                 }
             }
@@ -164,6 +171,7 @@ namespace FlappyBird
                 bottomDrawRect.X -= (int)player.x - this.Width/2;
                 e.Graphics.FillRectangle(Obstacle.sb, topDrawRect);
                 e.Graphics.FillRectangle(Obstacle.sb, bottomDrawRect);
+                e.Graphics.DrawImage(Obstacle.flagSprite, bottomDrawRect.X + bottomDrawRect.Width, bottomDrawRect.Y);
             }
 
             

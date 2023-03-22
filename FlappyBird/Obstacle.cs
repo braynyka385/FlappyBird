@@ -10,12 +10,13 @@ namespace FlappyBird
     internal class Obstacle
     {
         public static Bitmap sprite;
+        public static Bitmap flagSprite;
         private bool hasScored = false;
         public int x;
         public int y;
         public int yGap;
         public int width = 50;
-        public static SolidBrush sb = new SolidBrush(Color.GreenYellow);
+        public static SolidBrush sb = new SolidBrush(Color.SaddleBrown);
         static Random random = new Random();
 
         public Rectangle topOb;

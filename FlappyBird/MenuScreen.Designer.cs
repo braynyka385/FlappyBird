@@ -40,9 +40,9 @@
             this.titleLabel.ForeColor = System.Drawing.Color.Black;
             this.titleLabel.Location = new System.Drawing.Point(90, 73);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(288, 69);
+            this.titleLabel.Size = new System.Drawing.Size(312, 69);
             this.titleLabel.TabIndex = 0;
-            this.titleLabel.Text = "flappy bird";
+            this.titleLabel.Text = "china bloon";
             // 
             // startButton
             // 

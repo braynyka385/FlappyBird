@@ -18,6 +18,7 @@ namespace FlappyBird
         public GameOverScreen()
         {
             InitializeComponent();
+            label1.Text = "-" + (GameScreen.score * 100).ToString() + " social credit score";
             string path = Application.StartupPath;
             path = path.Substring(0, path.Length - 10);
             deathSound.Open(new Uri(path + "\\Resources\\death.wav"));
