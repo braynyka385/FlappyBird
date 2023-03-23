@@ -19,12 +19,15 @@ namespace FlappyBird
         Scenery[] bottomScenery = new Scenery[6];
         Scenery[] clouds = new Scenery[8];  
         List<Obstacle> obstacles = new List<Obstacle>();
+        List<Obstacle> birds = new List<Obstacle>();
         MediaPlayer flapSound = new MediaPlayer();
         MediaPlayer music = new MediaPlayer();
         string path = Application.StartupPath;
         public static int screenHeight;
         public static int score;
         int obsGap = 800;
+
+        int level = 0;
 
         Random random = new Random();
 
@@ -96,36 +99,96 @@ namespace FlappyBird
             
 
         }
+
+        private void ChangeLevel()
+        {
+            switch (level)
+            {
+                case 1:
+                    for(int i = 0; i < bottomScenery.Length; i++)
+                    {
+                        bottomScenery[i] = new Scenery(Properties.Resources.ocean2, i * Properties.Resources.ocean2.Width, this.Height - 200, 0.875);
+                    }
+                    for(int i = 0; i < 7; i++)
+                    {
+                        Obstacle o = new Obstacle((int)(random.Next(0, this.Width) + this.Width + player.x));
+                        o.y = random.Next(0, this.Height);
+                        birds.Add(o);
+                        
+                    }
+                    Obstacle.sprite = Properties.Resources.bird;
+                    break;
+            }
+        }
+
+        private void ObstacleLogic()
+        {
+
+        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            if(score >= 10 && level == 0)
+            {
+                level++;
+                ChangeLevel();
+            }
             player.Animate(gameTimer.Interval);
             player.ApplyGravity(0.8);
             player.Move();
             player.boundingBox.X = this.Width / 2 - player.currentSprite.Width / 2 + player.boundingBox.X;
-
-            for(int i = obstacles.Count - 1; i >= 0; i--)
+            if(level != 1)
             {
-                Rectangle checkBox = player.boundingBox;
-                checkBox.X -= this.Width/2 - (int)player.x;
-                if (obstacles[i].Contains(checkBox) || player.y > this.Height || player.y < 0 - player.currentSprite.Height * 2)
+                for (int i = obstacles.Count - 1; i >= 0; i--)
                 {
-                    GameOver();
-                }
+                    Rectangle checkBox = player.boundingBox;
+                    checkBox.X -= this.Width / 2 - (int)player.x;
+                    if (obstacles[i].Contains(checkBox) || player.y > this.Height || player.y < 0 - player.currentSprite.Height * 2)
+                    {
+                        GameOver();
+                    }
 
-                if (obstacles[i].Score(player.x))
-                {
-                    score++;
-                    player.HasScored();
-                }
-                if(obstacles[i].x - player.x + this.Width/2 + obstacles[i].width + Obstacle.flagSprite.Width < 0)
-                {
-                    obstacles.RemoveAt(i);
-                    Obstacle o = new Obstacle(obstacles[obstacles.Count - 1].x + obsGap);
-                    obstacles.Add(o);
-                }
-                
+                    if (obstacles[i].Score(player.x))
+                    {
+                        score++;
+                        player.HasScored();
+                    }
+                    if (obstacles[i].x - player.x + this.Width / 2 + obstacles[i].width + Obstacle.flagSprite.Width < 0)
+                    {
+                        obstacles.RemoveAt(i);
+                        Obstacle o = new Obstacle(obstacles[obstacles.Count - 1].x + obsGap);
+                        obstacles.Add(o);
+                    }
 
+
+                }
             }
+            else
+            {
+                for (int i = obstacles.Count - 1; i >= 0; i--)
+                {
+                    Rectangle checkBox = player.boundingBox;
+                    checkBox.X -= this.Width / 2 - (int)player.x;
+                    if (obstacles[i].Contains(checkBox) || player.y > this.Height || player.y < 0 - player.currentSprite.Height * 2)
+                    {
+                        GameOver();
+                    }
+
+                    if (obstacles[i].Score(player.x))
+                    {
+                        score++;
+                        player.HasScored();
+                    }
+                    if (obstacles[i].x - player.x + this.Width / 2 + obstacles[i].width + Obstacle.flagSprite.Width < 0)
+                    {
+                        obstacles.RemoveAt(i);
+                        Obstacle o = new Obstacle(obstacles[obstacles.Count - 1].x + obsGap);
+                        obstacles.Add(o);
+                    }
+
+
+                }
+            }
+            
             for (int i = 0; i < bottomScenery.Length; i++)
             {
                 if (bottomScenery[i].OutOfBounds(player.x, player.y))
@@ -155,7 +218,9 @@ namespace FlappyBird
         {
             foreach (Scenery s in bottomScenery)
             {
-                DrawScenery(e.Graphics, s);
+                if(level != 0)
+                    DrawScenery(e.Graphics, s);
+
             }
             
             foreach (Scenery s in clouds)
@@ -163,16 +228,30 @@ namespace FlappyBird
                 DrawScenery(e.Graphics, s);
             }
             e.Graphics.DrawImage(player.currentSprite, this.Width / 2 - player.currentSprite.Width / 2, (int)player.y);
-            foreach (Obstacle o in obstacles)
+            if(level != 1)
             {
-                Rectangle topDrawRect = o.topOb;
-                topDrawRect.X -= (int)player.x - this.Width/2;
-                Rectangle bottomDrawRect = o.bottomOb;
-                bottomDrawRect.X -= (int)player.x - this.Width/2;
-                e.Graphics.FillRectangle(Obstacle.sb, topDrawRect);
-                e.Graphics.FillRectangle(Obstacle.sb, bottomDrawRect);
-                e.Graphics.DrawImage(Obstacle.flagSprite, bottomDrawRect.X + bottomDrawRect.Width, bottomDrawRect.Y);
+                foreach (Obstacle o in obstacles)
+                {
+                    Rectangle topDrawRect = o.topOb;
+                    topDrawRect.X -= (int)player.x - this.Width / 2;
+                    Rectangle bottomDrawRect = o.bottomOb;
+                    bottomDrawRect.X -= (int)player.x - this.Width / 2;
+                    e.Graphics.FillRectangle(Obstacle.sb, topDrawRect);
+                    e.Graphics.FillRectangle(Obstacle.sb, bottomDrawRect);
+                    e.Graphics.DrawImage(Obstacle.flagSprite, bottomDrawRect.X + bottomDrawRect.Width, bottomDrawRect.Y);
+                }
             }
+            else
+            {
+                foreach (Obstacle o in birds)
+                {
+                    Rectangle birdRect = o.topOb;
+                    birdRect.X -= (int)player.x - this.Width / 2;
+                    
+                    e.Graphics.DrawImage(Obstacle.sprite, birdRect.X + birdRect.Width, birdRect.Y);
+                }
+            }
+            
 
             
         }

@@ -142,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\scoreinfo.txt" />
+    <None Include="Resources\bird.png" />
+    <None Include="Resources\ocean2.png" />
+    <None Include="Resources\ocean.png" />
     <None Include="Resources\chinabloon3l.png" />
     <None Include="Resources\chinabloon2l.png" />
     <None Include="Resources\chinabloon1l.png" />
