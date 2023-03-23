@@ -79,7 +79,7 @@ namespace FlappyBird
 
                 clouds[i] = cloud;
             }
-            score = 0;
+            score = 0;//
         }
 
         public Bitmap ScaleBitmap(Bitmap original, double byAmt)
