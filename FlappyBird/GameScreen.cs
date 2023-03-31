@@ -36,7 +36,6 @@ namespace FlappyBird
             InitializeComponent();
 
 
-
             Obstacle.flagSprite = ScaleBitmap(Properties.Resources.chinaflag, 10);
 
             path = path.Substring(0, path.Length - 10);
@@ -127,7 +126,7 @@ namespace FlappyBird
         }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            if(score >= 10 && level == 0)
+            if(score >= 10000000000000 && level == 0)
             {
                 level++;
                 ChangeLevel();
@@ -205,7 +204,6 @@ namespace FlappyBird
                     clouds[i].y = random.Next(0, this.Height / 2);
                 }
             }
-            label1.Text = score.ToString();
             
             Refresh();
         }
@@ -216,6 +214,7 @@ namespace FlappyBird
         }
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+
             foreach (Scenery s in bottomScenery)
             {
                 if(level != 0)
@@ -251,9 +250,10 @@ namespace FlappyBird
                     e.Graphics.DrawImage(Obstacle.sprite, birdRect.X + birdRect.Width, birdRect.Y);
                 }
             }
-            
+            e.Graphics.DrawString(score.ToString(), Form1.flappyFont, new SolidBrush(System.Drawing.Color.FromArgb(255, 0, 0)), new Point(this.Width / 2 - 25, 75));
 
-            
+
+
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
