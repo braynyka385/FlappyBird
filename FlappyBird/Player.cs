@@ -36,14 +36,14 @@ namespace FlappyBird
             
         }
         public void Flap()
-        {
+        { //Sets y speed to be lower when balloon "flaps" (terminology rolled over from when it was still a bird)
             ySpeed -= 10.5;
             if (ySpeed < -terminalVelocity)
                 ySpeed = -terminalVelocity;
             animationEnabled = true;
         }
         public void ApplyGravity(double pull)
-        {
+        { // raises y speed over time to sim gravity
             ySpeed += pull;
             if(ySpeed > terminalVelocity)
             {
@@ -57,11 +57,11 @@ namespace FlappyBird
             boundingBox = new Rectangle(bbO, (int)y + bbO, currentSprite.Width - bbO - bbO, currentSprite.Height - bbO - bbO);
         }
         public void HasScored()
-        {
+        { //increases speed as score increases. Makes game hard over time
             xSpeed *= 1.02;
         }
         public void Animate(int timeElapsed)
-        {
+        { //Runs through "flap" frames when "flapping"
             if (!animationEnabled)
                 return;
             spriteTimer+=timeElapsed;

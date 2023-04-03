@@ -11,7 +11,7 @@ namespace FlappyBird
     {
         public Bitmap sprite;
         public int x, y;
-        public double parallaxFactor;
+        public double parallaxFactor; //Makes it so that scenery can be given the illusion of "distance" in a 3rd dimension.
 
         public Scenery(Bitmap _sprite, int _x, int _y, double _parallaxFactor)
         {
@@ -24,7 +24,7 @@ namespace FlappyBird
 
         public bool OutOfBounds(double pX, double pY)
         {
-            return this.x - (pX * this.parallaxFactor) + this.sprite.Width < 0;
+            return this.x - (pX * this.parallaxFactor) + this.sprite.Width < 0; // Checks if the object is no longer visible.
         }
     }
 }

@@ -15,6 +15,8 @@ namespace FlappyBird
 {
     public partial class GameScreen : UserControl
     {
+
+        //Declaring vars global to GameScreen
         Player player;
         Scenery[] bottomScenery = new Scenery[6];
         Scenery[] clouds = new Scenery[8];  
@@ -35,7 +37,7 @@ namespace FlappyBird
         {
             InitializeComponent();
 
-
+            //setting up sprites, sounds
             Obstacle.flagSprite = ScaleBitmap(Properties.Resources.chinaflag, 10);
 
             path = path.Substring(0, path.Length - 10);
@@ -52,7 +54,7 @@ namespace FlappyBird
 
             screenHeight = this.Height;
             player = new Player(this.Height / 2, 7, 100, playerSprites);
-            for(int i = 1; i <= 3; i++)
+            for(int i = 1; i <= 3; i++) //Creating obstacles, so that multiple can be on screen at a time
             {
                 Obstacle o = new Obstacle(obsGap * i);
                 obstacles.Add(o);
@@ -60,7 +62,7 @@ namespace FlappyBird
                 
             }
             for(int i = 0; i < bottomScenery.Length; i++)
-            {
+            { //Obsolete
                 Scenery s = new Scenery(Properties.Resources.ground, (i) * Properties.Resources.ground.Width,
                     this.Height - Properties.Resources.ground.Height,
                     0.7);
@@ -68,7 +70,7 @@ namespace FlappyBird
             }
 
             for(int i = 0; i < clouds.Length; i++)
-            {
+            { //Creating clouds
                 Scenery cloud = new Scenery(Properties.Resources.cloud2,
                     random.Next(0, this.Width),
                     random.Next(0, this.Height/2),
@@ -82,12 +84,12 @@ namespace FlappyBird
         }
 
         public Bitmap ScaleBitmap(Bitmap original, double byAmt)
-        {
+        { //Scales a BMP to be larger/smaller
             return new Bitmap(original, new Size((int)(original.Width / byAmt), (int)(original.Height / byAmt)));
         }
 
         private void GameOver()
-        {
+        { //Ends game and goes to score screen
             player.x = 110;
             player.y = 110;
             music.Stop();
@@ -100,7 +102,7 @@ namespace FlappyBird
         }
 
         private void ChangeLevel()
-        {
+        { //Obsolete, would change scenery after certain score. Still kinda works if you wanna mess with it, change line 128 to a more reasonable number.
             switch (level)
             {
                 case 1:
@@ -120,13 +122,10 @@ namespace FlappyBird
             }
         }
 
-        private void ObstacleLogic()
-        {
 
-        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            if(score >= 10000000000000 && level == 0)
+            if(score >= 10000000000000 && level == 0) //Would change level. Obsolete 
             {
                 level++;
                 ChangeLevel();
@@ -138,7 +137,7 @@ namespace FlappyBird
             if(level != 1)
             {
                 for (int i = obstacles.Count - 1; i >= 0; i--)
-                {
+                { //Checks if player has passed obstacle or if player has hit obstacle or if obstacle has left view
                     Rectangle checkBox = player.boundingBox;
                     checkBox.X -= this.Width / 2 - (int)player.x;
                     if (obstacles[i].Contains(checkBox) || player.y > this.Height || player.y < 0 - player.currentSprite.Height * 2)
@@ -162,7 +161,7 @@ namespace FlappyBird
                 }
             }
             else
-            {
+            { //Same as above but for the obsolete level feature.
                 for (int i = obstacles.Count - 1; i >= 0; i--)
                 {
                     Rectangle checkBox = player.boundingBox;
@@ -209,7 +208,7 @@ namespace FlappyBird
         }
 
         private void DrawScenery(Graphics g, Scenery s)
-        {
+        { //Func to draw all types of scenery.
             g.DrawImage(s.sprite, s.x - (int)(player.x * s.parallaxFactor), s.y);
         }
         private void GameScreen_Paint(object sender, PaintEventArgs e)
@@ -230,7 +229,7 @@ namespace FlappyBird
             if(level != 1)
             {
                 foreach (Obstacle o in obstacles)
-                {
+                { //Draws obstacles
                     Rectangle topDrawRect = o.topOb;
                     topDrawRect.X -= (int)player.x - this.Width / 2;
                     Rectangle bottomDrawRect = o.bottomOb;
@@ -257,7 +256,7 @@ namespace FlappyBird
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
+        { //Controls
             switch (e.KeyCode)
             {
                 case Keys.Space:

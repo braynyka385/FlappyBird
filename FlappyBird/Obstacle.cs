@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FlappyBird
 {
     internal class Obstacle
-    {
+    { //Obstacles, "pipes" in the original game, flagpoles in mine
         public static Bitmap sprite;
         public static Bitmap flagSprite;
         private bool hasScored = false;
